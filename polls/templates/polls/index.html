@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+{#    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">#}
+{#    <link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet">#}
+{#    <link href="{{STATIC_URL}}css/bootstrap-theme.css" rel="stylesheet">#}
+{#    <link href="{{STATIC_URL}}css/bootstrap-theme.min.css" rel="stylesheet">#}
+{#    <p><img src="/static/polls/images/123.jpg"  width="980" height="180"></p>#}
+{#    <link rel="stylesheet" type="text/css" href="/static/polls/style.css">#}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+</head>
+<body>
+
+{% if latest_question_list %}
+    <ul>
+        {% for question in latest_question_list %}
+        <li>
+            <a href="{% url 'polls:detail' question.id %}">{{ question.question_text}}</a>
+{#<a href="/polls/{{ question.id}}}/">{{ question.question_text }}</a>>#}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+<p>No polls are available.</p>
+{% endif %}
+
+</body>
+</html>
