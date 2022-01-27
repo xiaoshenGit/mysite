@@ -13,9 +13,8 @@ class Car(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
     pass
 
-if __name__ == '__main__':
-    Car()
-    Manufacturer()
+
+
 
 
 
