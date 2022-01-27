@@ -52,3 +52,61 @@ class Album(models.Model):
 class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     album = models.ForeignKey(Album, on_delete=models.RESTRICT)
+
+
+# 第一个元素表示存在数据库内真实的值，第二个表示页面上显示的具体内容
+class Student(models.Model):
+    FRESHMAN = 'FR'
+    SOPHOMORE = 'SO'
+    JUNIOR = 'JR'
+    SENIOR ='SR'
+    YEAR_IN_SCHOOL_CHOICES = (
+        (FRESHMAN, 'Freshman'),
+        (SOPHOMORE, 'Sophmore'),
+        (JUNIOR, 'Junior'),
+        (SENIOR, 'Senior'),
+    )
+    year_in_school = models.CharField(
+        max_length=2,
+        choices = YEAR_IN_SCHOOL_CHOICES,
+        default = FRESHMAN,
+    )
+
+
+def is_upperclass(self):
+    return self.year_in_school in (self.JUNIOR, self.SENIOR)
+
+
+class Person(models.Model):
+    friends = models.ManyToManyField("self")
+    name = models.CharField(max_length=50)
+    SHIRT_SIZES = (
+        ('S', 'Small'),
+        ('M', 'Medium'),
+        ('L', 'Large'),
+    )
+    shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES)
+    def __str__(self):
+        return self.name
+
+class Group(models.Model):
+    name = models.CharField(max_length=128)
+    members = models.ManyToManyField(
+        Person,
+        through='Membership',       ## 自定义中间表
+        through_fields=('group', 'person'),
+    )
+
+class Membership(models.Model):  # 这就是具体的中间表模型
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    inviter = models.ForeignKey(
+        Person,
+        on_delete=models.CASCADE,
+        related_name="membership_invites",
+    )
+    invite_reason = models.CharField(max_length=64)
+
+
+
+
