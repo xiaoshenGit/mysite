@@ -139,12 +139,14 @@ STATICFILES_DIRS = [
 
 
 def test():
-    print(STATICFILES_DIRS)
+    # print(STATICFILES_DIRS)
+    print(LOCAL_FIlE_DIR)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOCAL_FIlE_DIR = os.path.join(BASE_DIR / 'polls/files')
 
 
 if __name__ == '__main__':
