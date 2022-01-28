@@ -1,17 +1,18 @@
 import datetime
-
+import uuid
+import os
 from django.db import models
 from django.utils import timezone
 from django.db.models.fields import Field
-
 from django.conf import settings
 from django.contrib.auth import get_user_model
-
 # Create your models here.
+
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
+
     def __str__(self):
         return self.question_text
 
@@ -28,6 +29,7 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)  # ForeignKey定义了外键
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+
     def __str__(self):
         return self.choice_text
 
@@ -86,8 +88,10 @@ class Person(models.Model):
         ('L', 'Large'),
     )
     shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES)
+
     def __str__(self):
         return self.name
+
 
 class Group(models.Model):
     name = models.CharField(max_length=128)
@@ -107,6 +111,32 @@ class Membership(models.Model):  # 这就是具体的中间表模型
     )
     invite_reason = models.CharField(max_length=64)
 
+# test  FileField
+# class TestOther(models.Model):
+#     # upload = models.FileField(upload_to='uploads/')
+#     upload = models.FileField(upload_to= 'uploads/%Y/%m/%d')
+
+def directory_path(instance, filename):
+    # 文件上传到MEDIA_ROOT/user_<id>/<filename>目录中
+    return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 
+class TestModel(models.Model):
+    upload = models.FileField(upload_to=directory_path)
+
+
+# test ImageField
+class TestImageField(models.Model):
+    upload = model.ImageFiel(upload_to=None, height_field=None, width_field=None, max_length=100,**options)
+
+# 生成uuid
+class MyUUID(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+# 保存文件路径
+def images_path():
+    return os.path.join(settings.LOCAL_FIlE_DIR,'images')
+
+class MyImage(models.Model):
+    file = models.FilePathField(path=images_path)
 
