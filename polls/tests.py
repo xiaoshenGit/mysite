@@ -5,7 +5,10 @@ from django.test import TestCase
 # class ForeignKey(to, on_delete,**options):
 #     pass
 
-# 啦啦啦啦啦
+# 顺序，dev:git add . --git commit--  git push
+# master:git pull
+# dev---master右键merge
+# github处理请求，解决冲突
 class Manufacturer(models.Model):
     pass
 
