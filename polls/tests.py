@@ -15,6 +15,10 @@ class Testcommit():
     # 到底是怎么回事啊
     pass
 
+class TestAgain():
+    # 来，我们再走一遍
+    pass
+
 
 if __name__ == '__main__':
     Car()
