@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.db.models.fields import Field
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.files import *
 # Create your models here.
 
 
@@ -127,7 +128,7 @@ class TestModel(models.Model):
 
 # test ImageField
 class TestImageField(models.Model):
-    upload = model.ImageFiel(upload_to=None, height_field=None, width_field=None, max_length=100,**options)
+    upload = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100)
 
 # 生成uuid
 class MyUUID(models.Model):
