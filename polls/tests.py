@@ -9,11 +9,10 @@ from django.test import TestCase
 # master:git pull
 # dev---master右键merge
 # github处理请求，解决冲突
-class Manufacturer(models.Model):
-    pass
 
-class Car(models.Model):
-    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+
+class Testcommit():
+    # 到底是怎么回事啊
     pass
 
 
